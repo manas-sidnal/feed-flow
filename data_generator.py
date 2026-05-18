@@ -35,11 +35,12 @@ def generate_users(num_users=20) -> list[User]:
 
 def generate_reference_string(num_requests=50, num_users=20, cache_hit_ratio=0.4) -> list[int]:
     requests = []
-    hot_users = [1, 2, 3, 4]
-    cold_users = list(range(5, num_users + 1))
+    hot_count = max(1, int(num_users * 0.2))
+    hot_users = list(range(1, hot_count + 1))
+    cold_users = list(range(hot_count+1, num_users + 1))
     
     for _ in range(num_requests):
-        if random.random() < cache_hit_ratio + 0.1:
+        if not cold_users or random.random() < cache_hit_ratio + 0.1:
             requests.append(random.choice(hot_users))
         else:
             requests.append(random.choice(cold_users))
