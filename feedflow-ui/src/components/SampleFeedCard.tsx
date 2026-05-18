@@ -1,14 +1,3 @@
-const TOPIC_COLORS: Record<string, string> = {
-  tech: "#6c63ff",
-  sports: "#00d4aa",
-  politics: "#ff6b9d",
-  health: "#f7b731",
-  science: "#4fc3f7",
-  finance: "#81c784",
-  entertainment: "#ce93d8",
-  world: "#ffb74d",
-};
-
 type Feed = {
   user_id: number;
   user_name: string;
@@ -20,32 +9,30 @@ type Props = { feeds: Feed[] };
 
 export default function SampleFeedCard({ feeds }: Props) {
   return (
-    <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(340px, 1fr))", gap: "1.25rem" }}>
+    <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(340px, 1fr))", gap: "1rem" }}>
       {feeds.map(feed => (
         <div key={feed.user_id} style={{
-          background: "var(--bg-card)", border: "1px solid var(--border)",
-          borderRadius: 16, padding: "1.25rem", overflow: "hidden"
+          background: "#0d0d0d", border: "1px solid #222",
+          borderRadius: 12, padding: "1.1rem",
         }}>
           {/* User header */}
-          <div style={{ display: "flex", alignItems: "center", gap: "0.75rem", marginBottom: "1rem" }}>
+          <div style={{ display: "flex", alignItems: "center", gap: "0.7rem", marginBottom: "1rem" }}>
             <div style={{
-              width: 44, height: 44, borderRadius: "50%",
-              background: `linear-gradient(135deg, var(--accent), var(--accent-2))`,
+              width: 40, height: 40, borderRadius: "50%",
+              background: "#1a1a1a", border: "1px solid #333",
               display: "flex", alignItems: "center", justifyContent: "center",
-              fontSize: "1.1rem", fontWeight: 700, color: "#fff", flexShrink: 0
+              fontSize: "1rem", fontWeight: 700, color: "#fff", flexShrink: 0
             }}>
               {feed.user_name.charAt(0)}
             </div>
             <div>
-              <div style={{ fontWeight: 700, fontSize: "0.95rem", color: "var(--text-primary)" }}>{feed.user_name}</div>
-              <div style={{ display: "flex", gap: "0.35rem", flexWrap: "wrap", marginTop: 3 }}>
+              <div style={{ fontWeight: 700, fontSize: "0.9rem", color: "#fff" }}>{feed.user_name}</div>
+              <div style={{ display: "flex", gap: "0.3rem", flexWrap: "wrap", marginTop: 3 }}>
                 {feed.preferences.map(p => (
                   <span key={p} style={{
-                    padding: "0.15rem 0.55rem", borderRadius: 20, fontSize: "0.65rem",
-                    fontWeight: 600, textTransform: "uppercase", letterSpacing: "0.05em",
-                    background: `${TOPIC_COLORS[p] ?? "#888"}20`,
-                    color: TOPIC_COLORS[p] ?? "#888",
-                    border: `1px solid ${TOPIC_COLORS[p] ?? "#888"}40`
+                    padding: "0.12rem 0.5rem", borderRadius: 4, fontSize: "0.62rem",
+                    fontWeight: 600, textTransform: "uppercase", letterSpacing: "0.04em",
+                    background: "#1a1a1a", color: "#888", border: "1px solid #333"
                   }}>{p}</span>
                 ))}
               </div>
@@ -53,33 +40,31 @@ export default function SampleFeedCard({ feeds }: Props) {
           </div>
 
           {/* Articles */}
-          <div style={{ display: "flex", flexDirection: "column", gap: "0.5rem" }}>
+          <div style={{ display: "flex", flexDirection: "column", gap: "0.4rem" }}>
             {feed.top5.map((article, i) => (
               <div key={i} style={{
-                display: "flex", alignItems: "center", gap: "0.75rem",
-                padding: "0.65rem 0.85rem", borderRadius: 10,
-                background: i === 0 ? "#6c63ff12" : "#ffffff05",
-                border: i === 0 ? "1px solid #6c63ff30" : "1px solid transparent",
-                transition: "background 0.2s",
+                display: "flex", alignItems: "center", gap: "0.65rem",
+                padding: "0.55rem 0.75rem", borderRadius: 8,
+                background: i === 0 ? "#ffffff08" : "transparent",
+                border: i === 0 ? "1px solid #333" : "1px solid transparent",
               }}>
                 <div style={{
-                  width: 24, height: 24, borderRadius: 6, flexShrink: 0,
-                  background: `${TOPIC_COLORS[article.topic] ?? "#888"}25`,
+                  width: 22, height: 22, borderRadius: 5, flexShrink: 0,
+                  background: "#1a1a1a", border: "1px solid #333",
                   display: "flex", alignItems: "center", justifyContent: "center",
-                  fontSize: "0.65rem", fontWeight: 800, color: TOPIC_COLORS[article.topic] ?? "#888"
+                  fontSize: "0.62rem", fontWeight: 800, color: i === 0 ? "#fff" : "#555"
                 }}>{i + 1}</div>
                 <div style={{ flex: 1, minWidth: 0 }}>
-                  <div style={{ fontSize: "0.82rem", fontWeight: 500, color: "var(--text-primary)", whiteSpace: "nowrap", overflow: "hidden", textOverflow: "ellipsis" }}>
+                  <div style={{ fontSize: "0.8rem", fontWeight: 500, color: "#ddd", whiteSpace: "nowrap", overflow: "hidden", textOverflow: "ellipsis" }}>
                     {article.title}
                   </div>
-                  <div style={{ fontSize: "0.68rem", color: "var(--text-muted)", marginTop: 1, textTransform: "capitalize" }}>
+                  <div style={{ fontSize: "0.65rem", color: "#555", marginTop: 1, textTransform: "capitalize" }}>
                     {article.topic}
                   </div>
                 </div>
                 <div style={{
-                  fontFamily: "'JetBrains Mono', monospace", fontSize: "0.78rem",
-                  fontWeight: 700, color: TOPIC_COLORS[article.topic] ?? "var(--accent)",
-                  flexShrink: 0
+                  fontFamily: "'JetBrains Mono', monospace", fontSize: "0.75rem",
+                  fontWeight: 700, color: "#38a169", flexShrink: 0
                 }}>{article.score.toFixed(2)}</div>
               </div>
             ))}
